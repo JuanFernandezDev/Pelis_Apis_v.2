@@ -1,0 +1,23 @@
+<div class="w-full">
+  <div class="w-10/12 mx-auto rounded-lg">
+    <div
+      class="py-10 rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+    >
+      <!-- bg-[#28455A] -->
+      <div id="peliculas" class="py-10 w-full flex flex-wrap justify-between">
+        <app-movie
+          *ngFor="let pelicula of MoviesService.allMovies"
+          [item]="pelicula"
+        ></app-movie>
+      </div>
+      <div id="pags" class="flex mx-auto">
+        <button
+          class="border-2 rounded-lg font-bold px-2.5 py-2.5 text-white"
+          (click)="masMovies()"
+        >
+          Mostrar más
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

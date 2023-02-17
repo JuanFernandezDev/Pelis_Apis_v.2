@@ -1,0 +1,117 @@
+<div
+  class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-row justify-between md:px-4 flex-wrap lg:flex-nowrap"
+>
+  <!-- Cabecera de busqueda y filtros -->
+  <div
+    class="flex flex-row justify-around md:justify-between flex-wrap lg:flex-nowrap"
+  >
+    <div class="flex flex-row flex-wrap lg:flex-nowrap w-full">
+      <!-- Input de busqueda -->
+      <input
+        #temp
+        (input)="buscarPelis(temp.value)"
+        class="rounded border-gray-600 placeholder:text-gray-900 pl-2 mb-2 md:mb-0"
+        type="text"
+        placeholder="Buscar película"
+      />
+      <div class="group ml-6 w-44">
+        <!-- Boton de categorias con su lista con todos los generos -->
+        <button
+          class="outline-none focus:outline-none border px-3 py-1 border-gray-600 rounded flex justify-between items-center min-w-32 h-12 w-44 bg-white"
+        >
+          <span class="pr-1 flex text-gray-900">Géneros</span>
+          <span>
+            <svg
+              class="fill-current h-5 w-5 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />
+            </svg>
+          </span>
+        </button>
+        <ul
+          id="Generos"
+          class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32 w-44 z-50"
+        >
+          <li
+            id="borrarTodos"
+            *ngIf="MoviesService.listaGeneros.length >= 2"
+            class="rounded-sm px-3 py-1 hover:bg-gray-100 flex justify-between"
+            (click)="borrarTodos()"
+          >
+            Borrar todos
+            <p>({{ MoviesService.listaGeneros.length }})</p>
+          </li>
+
+          <li
+            class="rounded-sm px-3 py-1 hover:bg-gray-100 flex justify-between items-center"
+            *ngFor="let genero of MoviesService.generos"
+            (click)="buscarPorGenero(genero)"
+          >
+            {{ genero.name }}
+            <img
+              *ngIf="siExiste(genero) == true"
+              class="w-2.5 h-2.5"
+              src="assets\img\x (1).png"
+              alt=""
+            />
+          </li>
+        </ul>
+      </div>
+      <!-- <div id="linea_cat" class="flex-row hidden xl:flex"></div> -->
+      <div class="w-full flex flex-row ml-4">
+        <button
+          class="text-white flex flex-row w-full mr-4 justify-center items-center"
+          *ngFor="let genero of gens.slice(0, 5)"
+          (click)="borrarGenero(genero)"
+        >
+          {{ genero.name }}
+          <img
+            class="flex items-center w-2.5 ml-2"
+            src="assets\img\x (2).png"
+            alt=""
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="group ml-6 w-44 text-center">
+      <button
+        class="outline-none focus:outline-none px-3 py-1 rounded flex items-center min-w-32 h-12 w-full justify-center"
+      >
+        <span class="pr-1 flex text-white">Ordenar por</span>
+        <span>
+          <img
+            class="fill-current ml-2 h-3 w-3 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+            src="assets/img/flecha-hacia-abajo-del-angulo.png"
+            viewBox="0 0 20 20"
+          />
+        </span>
+      </button>
+      <ul
+        id=""
+        class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-40 transition duration-150 ease-in-out origin-top min-w-32 w-36"
+      >
+        <li
+          id=""
+          class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 justify-between"
+          onclick="cambiarOrden(1)"
+        >
+          Relevancia
+        </li>
+        <li
+          id=""
+          class="rounded-sm px-3 py-1 hover:bg-opacity-70 justify-between"
+          onclick="cambiarOrden(2)"
+        >
+          Fecha estreno
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

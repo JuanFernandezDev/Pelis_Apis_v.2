@@ -1,0 +1,16 @@
+<div
+  class="w-full bg-gradient-to-l from-cyan-900 via-sky-800 to-cyan-900 mb-10"
+>
+  <app-navbar></app-navbar>
+  <!-- <app-footer></app-footer> -->
+  <app-barra-busqueda></app-barra-busqueda>
+  <app-panel-peliculas></app-panel-peliculas>
+
+  <button
+    class="fixed bottom-4 right-4 p-2 rounded-full bg-gray-700 text-white hover:bg-gray-800"
+    *ngIf="showButton"
+    (click)="scrollToTop()"
+  >
+    <img src="assets/img/punta-de-flecha-hacia-arriba.png" alt="" />
+  </button>
+</div>
