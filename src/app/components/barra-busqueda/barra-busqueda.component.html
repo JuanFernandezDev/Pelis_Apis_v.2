@@ -1,20 +1,22 @@
 <div
-  class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-row justify-between md:px-4 flex-wrap lg:flex-nowrap"
+  class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
 >
   <!-- Cabecera de busqueda y filtros -->
   <div
-    class="flex flex-row justify-around md:justify-between flex-wrap lg:flex-nowrap"
+    class="flex flex-row justify-around md:justify-between flex-wrap lg:flex-nowrap w-full"
   >
-    <div class="flex flex-row flex-wrap lg:flex-nowrap w-full">
+    <div
+      class="flex flex-colum justify-center md:flex-row flex-wrap lg:flex-nowrap"
+    >
       <!-- Input de busqueda -->
       <input
         #temp
         (input)="buscarPelis(temp.value)"
-        class="rounded border-gray-600 placeholder:text-gray-900 pl-2 mb-2 md:mb-0"
+        class="rounded border-gray-600 placeholder:text-gray-900 pl-2 h-12 mb-2 md:mb-0"
         type="text"
         placeholder="Buscar película"
       />
-      <div class="group ml-6 w-44">
+      <div class="group sm:ml-6 w-44">
         <!-- Boton de categorias con su lista con todos los generos -->
         <button
           class="outline-none focus:outline-none border px-3 py-1 border-gray-600 rounded flex justify-between items-center min-w-32 h-12 w-44 bg-white"
@@ -62,15 +64,15 @@
         </ul>
       </div>
       <!-- <div id="linea_cat" class="flex-row hidden xl:flex"></div> -->
-      <div class="w-full flex flex-row ml-4">
+      <div class="hidden w-full md:flex flex-row md:ml-4">
         <button
           class="text-white flex flex-row w-full mr-4 justify-center items-center"
           *ngFor="let genero of gens.slice(0, 5)"
           (click)="borrarGenero(genero)"
         >
-          {{ genero.name }}
+          <p>{{ genero.name }}</p>
           <img
-            class="flex items-center w-2.5 ml-2"
+            class="flex items-center justify-center w-2.5 h-2.5 ml-2"
             src="assets\img\x (2).png"
             alt=""
           />
@@ -79,8 +81,8 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="group ml-6 w-44 text-center">
+  <div class="flex justify-center items-center mx-auto">
+    <div class="group md:ml-6 w-44 text-center">
       <button
         class="outline-none focus:outline-none px-3 py-1 rounded flex items-center min-w-32 h-12 w-full justify-center"
       >
@@ -95,19 +97,19 @@
       </button>
       <ul
         id=""
-        class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-40 transition duration-150 ease-in-out origin-top min-w-32 w-36"
+        class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-32 sm:right-40 transition duration-150 ease-in-out origin-top min-w-32 w-36"
       >
         <li
           id=""
           class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 justify-between"
-          onclick="cambiarOrden(1)"
+          (click)="cambiarOrden(1)"
         >
           Relevancia
         </li>
         <li
           id=""
           class="rounded-sm px-3 py-1 hover:bg-opacity-70 justify-between"
-          onclick="cambiarOrden(2)"
+          (click)="cambiarOrden(2)"
         >
           Fecha estreno
         </li>

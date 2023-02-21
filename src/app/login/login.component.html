@@ -1,0 +1,67 @@
+<div class="w-2/4 mx-auto flex flex-col mt-10 rounded-lg bg-[#113149]">
+  <div>
+    <h1 class="text-5xl text-center mt-5 text-white">Login</h1>
+  </div>
+  <form
+    class="w-10/12 mt-10 mx-auto mb-4 flex flex-col"
+    [formGroup]="formUser"
+    (ngSubmit)="procesar()"
+  >
+    <label class="text-white">Email</label>
+    <input
+      class="border border-black px-2 mt-2 py-2 rounded-lg placeholder:pl-2 placeholder:px-2"
+      type="email"
+      formControlName="email"
+      placeholder="Escribe tu email"
+    />
+
+    <div
+      class="border border-gray-800 py-2 px-2 bg-red-500 items-center mt-2 rounded-lg opacity-80"
+      [hidden]="email.valid || email.pristine"
+    >
+      <span *ngIf="email.errors?.['required']">El email es obligatorio</span>
+      <span *ngIf="email.errors?.['email']">El email es incorrecto</span>
+    </div>
+
+    <label class="text-white mt-2">Contraseña</label>
+    <input
+      class="border px-2 border-black mt-2 py-2 rounded-lg placeholder:pl-2 placeholder:px-2"
+      type="text"
+      formControlName="name"
+      placeholder="Escribe la contraseña"
+    />
+    <div
+      class="border border-gray-800 py-2 px-2 bg-red-500 items-center mt-2 rounded-lg opacity-80"
+      [hidden]="name.valid || name.pristine"
+    >
+      La contraseña es obligatorio
+    </div>
+
+    <div class="flex flex-col items-center justify-center">
+      <button
+        class="mt-4 px-2 py-2 flex justify-center items-center border border-gray-500 font-semibold text-black disabled:bg-gray-400 bg-white w-36 rounded-lg"
+        [disabled]="formUser.invalid"
+      >
+        Login
+      </button>
+      <div class="flex">
+        <div
+          class="flex bg-white w-36 font-semibold px-2 py-2 rounded-lg hover:bg-gray-300 mt-3.5 items-center mr-1"
+          href="#"
+          (click)="this.fireService.loginGoogle()"
+        >
+          <img class="w-6 ml-2" src="assets/img/gmail.png" alt="" />
+          <p class="ml-4">Gmail</p>
+        </div>
+
+        <div
+          class="flex bg-white w-36 font-semibold px-2 py-2 rounded-lg hover:bg-gray-300 mt-3.5 items-center justify-center ml-1"
+          href="#"
+          (click)="goRegistro()"
+        >
+          Registrarse
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

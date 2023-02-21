@@ -1,16 +1,16 @@
 <div
   *ngIf="item.poster_path != undefined"
-  class="flex flex-col mx-5 my-4 w-64 shadow-2xl rounded-lg bg-[#113149] hover:bg-[#28455A] relative"
+  class="flex flex-col mx-5 my-4 w-45 sm:w-54 md:w-64 shadow-2xl rounded-lg bg-[#113149] hover:bg-[#28455A] relative"
 >
   <div
-    class="p-2 h-96 max-h-96 absolute top-0 left-0 opacity-0 hover:opacity-100 bg-[#113149] bg-opacity-90 text-white overflow-auto rounded-t-lg"
+    class="p-2 h-72 sm:h-82 md:h-96 absolute top-0 left-0 opacity-0 hover:opacity-100 bg-[#113149] bg-opacity-90 text-white overflow-auto rounded-t-lg"
   >
     <!-- transition-all duration-300 transform translate-y-full -->
     <p>{{ item.overview }}</p>
   </div>
 
   <img
-    class="w-64 h-96 max-h-96 rounded-t-lg"
+    class="w-45 h-76 sm:w-54 sm:h-82 md:w-64 md:h-96 md:max-h-96 rounded-t-lg"
     src="https://image.tmdb.org/t/p/w500{{ item.poster_path }}"
     alt=""
   />

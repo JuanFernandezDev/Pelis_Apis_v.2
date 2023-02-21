@@ -6,12 +6,89 @@
       <a class="text-lg text-white flex items-center font-bold" href="#">
         <img class="w-7 h-7 mr-2" src="assets/img/video.png" />Inicio
       </a>
-      <div>
+      <div class="hidden sm:block">
         <a class="text-base text-white ml-3 font-bold" href="#">Películas</a>
         <a class="text-base text-white ml-3 font-bold" href="#">About us</a>
       </div>
     </div>
 
-    <a class="text-lg text-white font-bold" href="#">Log in</a>
+    <a
+      class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+      href="#"
+      (click)="goLogin($event)"
+    >
+      <img
+        class="w-5 object-contain mr-2"
+        src="assets\img\profile-user.png"
+        alt=""
+      />
+      <p>Log in</p>
+    </a>
+    <div id="ruedita" class="flex justify-end sm:hidden">
+      <div class="group ml-6 w-12">
+        <button
+          class="outline-none focus:outline-none px-3 py-1 rounded flex items-center min-w-32 h-12 w-full justify-center"
+        >
+          <span>
+            <img
+              class="fill-current ml-2 h-5 w-5 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+              src="assets\img\settings.png"
+            />
+          </span>
+        </button>
+        <!-- Nav normal -->
+        <ul
+          id=""
+          class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-6 transition duration-150 ease-in-out origin-top min-w-32 w-36 z-50"
+        >
+          <li
+            id=""
+            class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 flex items-center"
+          >
+            <!-- <img
+              class="w-3.5 object-contain mr-2"
+              src="Img/estadisticas.png"
+              alt=""
+            /> -->
+            <div class="opacity-100 text-white">About us</div>
+          </li>
+          <li
+            id=""
+            class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 flex items-center"
+          >
+            <img
+              class="w-3.5 object-contain mr-2"
+              src="assets\img\settings.png"
+              alt=""
+            />
+            <div class="opacity-100 text-white">Setting</div>
+          </li>
+          <li
+            class="hidden rounded-sm px-3 py-1 hover:bg-opacity-70 items-center"
+          >
+            <div id="img-logout2">
+              <img
+                class="w-3.5 object-contain mr-1"
+                src="assets\img\profile-user.png"
+                alt=""
+              />
+            </div>
+            <div class="opacity-100 text-white">LogOut</div>
+          </li>
+          <li
+            class="rounded-sm px-3 py-1 hover:bg-opacity-70 flex items-center"
+            (click)="goLogin($event)"
+          >
+            <img
+              class="w-3.5 object-contain mr-2"
+              src="assets\img\profile-user.png"
+              alt=""
+            />
+
+            <div class="opacity-100 text-white">Login</div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </div>

@@ -12,6 +12,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BarraBusquedaComponent } from './components/barra-busqueda/barra-busqueda.component';
 import { PanelPeliculasComponent } from './components/panel-peliculas/panel-peliculas.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegistroComponent } from './registro/registro.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { FirebaseApp } from '@angular/fire/compat';
+import { PERSISTENCE } from '@angular/fire/compat/auth'
 
 @NgModule({
   declarations: [
@@ -22,14 +32,23 @@ import { PanelPeliculasComponent } from './components/panel-peliculas/panel-peli
     MovieComponent,
     FooterComponent,
     BarraBusquedaComponent,
-    PanelPeliculasComponent
+    PanelPeliculasComponent,
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: PERSISTENCE, useValue: 'session' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

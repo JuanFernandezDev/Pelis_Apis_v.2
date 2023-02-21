@@ -36,7 +36,7 @@ export class Query {
     page: number = 1 //Pagina inicializada a uno 
     language: string = "es-ES"
     sort_by: string = "popularity.desc" //Por defecto se busca por popularity,
-    with_genres?: number[]
+    with_genres?: string
     query?: string 
 }
 

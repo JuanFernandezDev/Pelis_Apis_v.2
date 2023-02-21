@@ -27,6 +27,13 @@ export class MoviesService {
     this.pagina = 1
     this.queryParams.page = 1
     this.buscando = false
+
+    if(this.listaGeneros.length != 0){
+      this.queryParams.with_genres = this.listaGeneros.join(',')
+    }else{
+      delete this.queryParams.with_genres
+    }
+
     this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie/", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
@@ -42,7 +49,7 @@ export class MoviesService {
   masMovies(){
     this.queryParams.page++
     this.pagina++
-   
+
     if(this.buscando){
       console.log(this.nombre)
       let queryBuscar = {
@@ -80,17 +87,9 @@ export class MoviesService {
     this.buscando = true
     this.pagina = 1
     
-    let queryBuscar = {
-      api_key: "6a98bac66a8fa62e25bcf3b221294b7f",
-      page: this.pagina, //Pagina inicializada a uno 
-      language: "es-ES",
-      sort_by: "popularity.desc",  //Por defecto se busca por popularity,
-      query: peli
-    }
-    
-    //"https://api.themoviedb.org/3/search/movie?"
+    this.queryParams.query = peli
 
-    this.http.get<MovieResponse>("https://api.themoviedb.org/3/search/movie?", { params: queryBuscar }).subscribe(
+    this.http.get<MovieResponse>("https://api.themoviedb.org/3/search/movie?", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
           this.allMovies = data.results!
@@ -101,12 +100,6 @@ export class MoviesService {
       
     )
   }
-
-  /* "https://api.themoviedb.org/3/genre/movie/list?" + new URLSearchParams({
-        api_key: "6a98bac66a8fa62e25bcf3b221294b7f",
-        language: "es-ES",
-    }))
- */
 
   listarGeneros(){
     let queryGeneros = {
@@ -125,28 +118,4 @@ export class MoviesService {
     )
   }
 
-  buscarPeliGenre(){
-    this.pagina = 1
-    
-    let queryBuscar = {
-      api_key: "6a98bac66a8fa62e25bcf3b221294b7f",
-      page: this.pagina, //Pagina inicializada a uno 
-      language: "es-ES",
-      sort_by: "popularity.desc",  //Por defecto se busca por popularity,
-      with_genres: this.listaGeneros
-    }
-
-    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie?", { params: queryBuscar }).subscribe(
-      {
-        next: (data: MovieResponse) => {
-
-          this.allMovies = data.results!
-          console.log(this.allMovies)
-        }, error: (err) =>{
-          console.log(err)
-        }
-      }
-      
-    )
-  }
 }
