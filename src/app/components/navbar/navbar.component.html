@@ -15,6 +15,7 @@
     <a
       class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
       href="#"
+      *ngIf="!this.fireService.logged"
       (click)="goLogin($event)"
     >
       <img
@@ -24,6 +25,28 @@
       />
       <p>Log in</p>
     </a>
+
+    <a
+      class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+      href="#"
+      *ngIf="this.fireService.logged"
+      (click)="this.fireService.logOut()"
+    >
+      <img
+        class="w-6 object-contain mr-2 rounded-full"
+        *ngIf="this.fireService.userData.photoURL != null"
+        [src]="this.fireService.userData.photoURL"
+        alt=""
+      />
+      <img
+        *ngIf="this.fireService.userData.photoURL == null"
+        class="w-6 object-contain mr-2"
+        src="assets\img\profile-user.png"
+        alt=""
+      />
+      <p>Log out</p>
+    </a>
+
     <div id="ruedita" class="flex justify-end sm:hidden">
       <div class="group ml-6 w-12">
         <button
@@ -73,7 +96,28 @@
                 alt=""
               />
             </div>
-            <div class="opacity-100 text-white">LogOut</div>
+            <div class="opacity-100 text-white">
+              <a
+                class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+                href="#"
+                *ngIf="this.fireService.logged"
+                (click)="this.fireService.logOut()"
+              >
+                <img
+                  class="w-6 object-contain mr-2 rounded-full"
+                  *ngIf="this.fireService.userData.photoURL != null"
+                  [src]="this.fireService.userData.photoURL"
+                  alt=""
+                />
+                <img
+                  *ngIf="this.fireService.userData.photoURL == null"
+                  class="w-6 object-contain mr-2"
+                  src="assets\img\profile-user.png"
+                  alt=""
+                />
+                <p>Log out</p>
+              </a>
+            </div>
           </li>
           <li
             class="rounded-sm px-3 py-1 hover:bg-opacity-70 flex items-center"

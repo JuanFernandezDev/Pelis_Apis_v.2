@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { FirebaseService } from '../services/firebase.service';
 import { Router } from '@angular/router';
 @Component({
@@ -9,32 +9,40 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private fb: FormBuilder, public fireService: FirebaseService, private router: Router){
+  constructor(private fb: FormBuilder, public fireService: FirebaseService, private router: Router) {
 
   }
-
- /*  formUser = new FormGroup({
-    'name': new FormControl('', Validators.required),
-    'email': new FormControl('', [Validators.required,Validators.email])
-  }) */
 
   formUser = this.fb.group({
-    'name': ['', Validators.required],
-    'email': ['',[Validators.required, Validators.email]]
+    'contra': ['', Validators.required],
+    'email': ['', [Validators.required, Validators.email]]
   })
 
-  get name(){
-    return this.formUser.get('name') as FormControl
+  get contra() {
+    return this.formUser.get('contra') as FormControl
   }
-  get email(){
+  get email() {
     return this.formUser.get('email') as FormControl
   }
 
-  procesar(){
+  procesar() {
     console.log(this.formUser.value)
   }
 
-  goRegistro(){
+  goRegistro() {
     this.router.navigate(['/register']);
+  }
+
+  isPasswordVisible = false;
+
+  togglePasswordVisibility() {
+    if (this.isPasswordVisible) {
+      this.contra.setValidators([Validators.required]);
+      this.contra.updateValueAndValidity();
+    } else {
+      this.contra.setValidators([]);
+      this.contra.updateValueAndValidity();
+    }
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 }

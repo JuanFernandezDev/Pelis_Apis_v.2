@@ -1,4 +1,10 @@
-<div class="w-1/3 mx-auto flex flex-col mt-10 rounded-lg bg-[#113149]">
+<div class="flex justify-center items-center mt-5 font-serif">
+  <img class="w-12" src="assets\img\video_grande.png" alt="" />
+  <h1 class="text-5xl ml-3 text-white font-semibold opacity-95">MisPelis</h1>
+</div>
+<div
+  class="w-3/4 sm:w-2/4 lg:w-1/3 mx-auto flex flex-col mt-10 rounded-lg bg-[#113149]"
+>
   <div>
     <h1 class="text-5xl text-center mt-5 text-white font-semibold">Registro</h1>
   </div>
@@ -13,7 +19,12 @@
       type="email"
       formControlName="email"
     />
-
+    <div
+      class="border border-gray-800 py-2 px-2 bg-red-500 items-center mt-2 rounded-lg opacity-80"
+      [hidden]="!this.fireService.errorRegistro"
+    >
+      El correo electronico que intentas utilizar ya esta registrado.
+    </div>
     <div
       class="border border-gray-800 py-2 px-2 bg-red-500 items-center mt-2 rounded-lg opacity-80"
       [hidden]="email.valid || email.pristine"

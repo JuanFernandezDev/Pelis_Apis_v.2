@@ -47,12 +47,7 @@ export class RegistroComponent {
   }
 
   register(email: string, pass: string){
-    this.fireService.newAccount(email, pass).then((user) => {
-      console.log("User created")
-      this.router.navigate(['/login']);
-    }).catch((error) => {
-      console.log("Error creating user: " + error)
-    })
+    this.fireService.newAccount(email, pass)
   }
   isPasswordVisible = false;
 

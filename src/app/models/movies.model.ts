@@ -7,6 +7,7 @@ export interface MovieResponse {
 
 export class Movie {
     poster_path?:       null;
+    liked?:            boolean;
     adult?:             boolean;
     overview?:          string;
     release_date?:      Date;
