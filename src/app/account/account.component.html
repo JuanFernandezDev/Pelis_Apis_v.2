@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="w-full">
+  <div
+    class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
+  >
+    <h1 class="text-xl text-white font-semibold">Peliculas favoritas</h1>
+  </div>
+  <div
+    class="w-10/12 mx-auto rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+  >
+    <div class="py-10 w-full flex flex-wrap justify-start">
+      <app-movie *ngFor="let pelicula of likes" [item]="pelicula"></app-movie>
+    </div>
+  </div>
+  <div
+    class="w-10/12 mt-10 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
+  >
+    <h1 class="text-xl text-white font-semibold">Peliculas pendientes</h1>
+  </div>
+  <div
+    class="w-10/12 mx-auto rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+  >
+    <div class="py-10 w-full flex flex-wrap justify-start">
+      <app-movie *ngFor="let pelicula of pend" [item]="pelicula"></app-movie>
+    </div>
+  </div>
+</div>

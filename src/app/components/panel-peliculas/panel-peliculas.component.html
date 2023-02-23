@@ -9,6 +9,12 @@
           *ngFor="let pelicula of MoviesService.allMovies"
           [item]="pelicula"
         ></app-movie>
+        <h1
+          *ngIf="MoviesService.allMovies.length == 0"
+          class="text-white font-semibold text-3xl"
+        >
+          No existen peliculas
+        </h1>
       </div>
     </div>
   </div>

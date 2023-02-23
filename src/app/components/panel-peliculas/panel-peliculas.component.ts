@@ -17,14 +17,6 @@ export class PanelPeliculasComponent {
 
   ngOnInit(): void {
     this.MoviesService.getMovies()
-
-    this.fireService.myLikes?.subscribe((likes) => {
-      console.log(likes)
-      likes.forEach((like) => {
-        let posicion = this.MoviesService.allMovies.findIndex(m => m.id === like.id)
-        this.MoviesService.allMovies[posicion]!.liked = like.like
-      })
-    })
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -34,7 +26,10 @@ export class PanelPeliculasComponent {
     const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight) {
-      this.masMovies()
+      setTimeout(() => {
+        this.masMovies()
+      }, 300);
+
     }
   }
   masMovies() {

@@ -5,7 +5,7 @@ import { GoogleAuthProvider, onAuthStateChanged, getAuth } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 /* import { auth } from 'firebase/app'; */
 import { map, Observable } from 'rxjs';
-import { Like } from '../models/like.model';
+import { Movie } from '../models/movies.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,18 +14,19 @@ export class FirebaseService {
   userData: any;
   logged: boolean = false;
 
-  myLikes?: Observable<Like[]>;
-
-  likeRef: AngularFirestoreCollection<Like>;
+  myLikes!: Observable<Movie[]>;
+  pendientes!: Observable<Movie[]>;
+  movieRef: AngularFirestoreCollection<Movie>;
 
   constructor(
     private auth: AngularFireAuth,
     private router: Router,
     public db: AngularFirestore
   ) {
-    this.likeRef = db.collection('users');
+    this.movieRef = db.collection('users');
     if (this.isLoggedIn()) {
-      this.myLikes = this.likeRef.doc(this.userEmail()).collection('likes').valueChanges();
+      this.myLikes = this.movieRef.doc(this.userEmail()).collection('likes').valueChanges();
+      this.pendientes = this.movieRef.doc(this.userEmail()).collection('pendientes').valueChanges();
     }
 
     this.auth.authState.subscribe((user) => {
@@ -33,6 +34,7 @@ export class FirebaseService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+        this.logged = true;
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
@@ -110,12 +112,12 @@ export class FirebaseService {
     });
   }
 
-  saveLike(like: Like) {
-    return this.likeRef.doc(this.userData.email).collection('likes').doc(String(like.id)).set(Object.assign({}, like));
+  saveLike(like: Movie) {
+    return this.movieRef.doc(this.userData.email).collection('likes').doc(String(like.id)).set(Object.assign({}, like));
   }
 
   unLike(idDoc: string) {
-    return this.likeRef.doc(this.userData.email).collection('likes').doc(idDoc).delete();
+    return this.movieRef.doc(this.userData.email).collection('likes').doc(idDoc).delete();
   }
 
   loginGoogle() {
@@ -130,5 +132,15 @@ export class FirebaseService {
       // Handle Errors here.
       console.log(error.message);
     });
+
+
   }
+  guardarPendiente(pendiente: Movie) {
+    return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(pendiente.id)).set(Object.assign({}, pendiente));
+  }
+  quitarPendiente(idDoc: string) {
+    return this.movieRef.doc(this.userData.email).collection('pendientes').doc(idDoc).delete();
+  }
+
+
 }

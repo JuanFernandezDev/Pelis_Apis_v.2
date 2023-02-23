@@ -12,41 +12,49 @@
       </div>
     </div>
 
-    <a
-      class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
-      href="#"
-      *ngIf="!this.fireService.logged"
-      (click)="goLogin($event)"
-    >
-      <img
-        class="w-5 object-contain mr-2"
-        src="assets\img\profile-user.png"
-        alt=""
-      />
-      <p>Log in</p>
-    </a>
+    <div class="hidden sm:flex items-center justify-center">
+      <a
+        *ngIf="this.fireService.logged"
+        class="text-lg text-white font-bold mr-3"
+        routerLink="/account"
+        >Mi cuenta</a
+      >
 
-    <a
-      class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
-      href="#"
-      *ngIf="this.fireService.logged"
-      (click)="this.fireService.logOut()"
-    >
-      <img
-        class="w-6 object-contain mr-2 rounded-full"
-        *ngIf="this.fireService.userData.photoURL != null"
-        [src]="this.fireService.userData.photoURL"
-        alt=""
-      />
-      <img
-        *ngIf="this.fireService.userData.photoURL == null"
-        class="w-6 object-contain mr-2"
-        src="assets\img\profile-user.png"
-        alt=""
-      />
-      <p>Log out</p>
-    </a>
+      <a
+        class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+        href="#"
+        *ngIf="!this.fireService.logged"
+        (click)="goLogin($event)"
+      >
+        <img
+          class="w-5 object-contain mr-2"
+          src="assets\img\profile-user.png"
+          alt=""
+        />
+        <p>Log in</p>
+      </a>
 
+      <a
+        class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+        href="#"
+        *ngIf="this.fireService.logged"
+        (click)="this.fireService.logOut()"
+      >
+        <img
+          class="w-6 object-contain mr-2 rounded-full"
+          *ngIf="this.fireService.userData.photoURL != null"
+          [src]="this.fireService.userData.photoURL"
+          alt=""
+        />
+        <img
+          *ngIf="this.fireService.userData.photoURL == null"
+          class="w-6 object-contain mr-2"
+          src="assets\img\profile-user.png"
+          alt=""
+        />
+        <p>Log out</p>
+      </a>
+    </div>
     <div id="ruedita" class="flex justify-end sm:hidden">
       <div class="group ml-6 w-12">
         <button

@@ -32,7 +32,10 @@
         <img class="h-4 w-4" src="assets\img\me-gusta_blanco.png" alt="" />
         <p class="ml-2">Favoritos</p>
       </li>
-      <li class="px-2 py-0.5 hover:text-black font-medium flex items-center">
+      <li
+        class="px-2 py-0.5 hover:text-black font-medium flex items-center"
+        (click)="ponerPendiente()"
+      >
         <img class="h-4 w-4" src="assets\img\pendiente.png" alt="" />
         <p class="ml-2">Pendiente</p>
       </li>

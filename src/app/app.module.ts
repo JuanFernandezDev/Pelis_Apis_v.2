@@ -21,7 +21,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { FirebaseApp } from '@angular/fire/compat';
-import { PERSISTENCE } from '@angular/fire/compat/auth'
+import { PERSISTENCE } from '@angular/fire/compat/auth';
+import { AccountComponent } from './account/account.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PERSISTENCE } from '@angular/fire/compat/auth'
     BarraBusquedaComponent,
     PanelPeliculasComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

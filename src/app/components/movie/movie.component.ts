@@ -43,24 +43,41 @@ export class MovieComponent {
     if (this.item.liked === true) {
       this.disliked();
     } else {
-
-      let like = new Like();
-      like.name = this.item.title;
-      like.id = this.item.id;
-      like.like = true;
-
-      this.fireService.saveLike(like).then((success) => {
+      this.item.liked = true
+      this.fireService.saveLike(this.item).then((success) => {
         console.log(success);
-        this.item.liked = true;
       }).catch((err) => {
         console.log(err);
       });
     }
+    this.cerrarLista()
   }
 
   disliked() {
-    this.fireService.unLike(String(this.item.id!)).then((success) => {
+    this.fireService.unLike(String(this.item.id)).then((success) => {
       this.item.liked = undefined;
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  ponerPendiente() {
+    if (this.item.pending === true) {
+      this.quitarPendiente();
+    } else {
+      this.item.pending = true
+      this.fireService.guardarPendiente(this.item).then((success) => {
+        console.log(success);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+    this.cerrarLista()
+  }
+
+  quitarPendiente() {
+    this.fireService.quitarPendiente(String(this.item.id)).then((success) => {
+      this.item.pending = undefined;
     }).catch((err) => {
       console.log(err);
     });

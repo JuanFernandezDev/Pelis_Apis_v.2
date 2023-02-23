@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MovieResponse, GenreResponse } from '../models/movies.model';
 import { Movie, Genre, Query } from '../models/movies.model';
+import { FirebaseService } from './firebase.service';
 
- 
 @Injectable({
   providedIn: 'root'
 })
@@ -19,18 +19,15 @@ export class MoviesService {
   allMovies: Movie[] = []
   generos: Genre[] = []
   listaGeneros: number[] = []
-  constructor(private http: HttpClient) { }
- 
+  constructor(private http: HttpClient, public fireService: FirebaseService) { }
+
   peliculas: Movie[] = []
 
   getMovies() {
-    this.pagina = 1
     this.queryParams.page = 1
-    this.buscando = false
-
-    if(this.listaGeneros.length != 0){
+    if (this.listaGeneros.length != 0) {
       this.queryParams.with_genres = this.listaGeneros.join(',')
-    }else{
+    } else {
       delete this.queryParams.with_genres
     }
 
@@ -38,70 +35,50 @@ export class MoviesService {
       {
         next: (data: MovieResponse) => {
           this.allMovies = data.results!
-        }, error: (err) =>{
+          this.actualizar()
+        }, error: (err) => {
           console.log(err)
         }
       }
-      
     )
   }
 
-  masMovies(){
+  masMovies() {
     this.queryParams.page++
     this.pagina++
 
-    if(this.buscando){
-      console.log(this.nombre)
-      let queryBuscar = {
-        api_key: "6a98bac66a8fa62e25bcf3b221294b7f",
-        page: this.pagina, //Pagina inicializada a uno 
-        language: "es-ES",
-        sort_by: "popularity.desc",  //Por defecto se busca por popularity,
-        query: this.nombre
-      }
-      this.http.get<MovieResponse>("https://api.themoviedb.org/3/search/movie?", { params: queryBuscar }).subscribe(
+
+    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie/", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
           this.allMovies = this.allMovies.concat(data.results!)
-        }, error: (err) =>{
+        }, error: (err) => {
           console.log(err)
         }
       }
-      
     )
-    }else{
-      this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie/", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
-        {
-          next: (data: MovieResponse) => {
-            this.allMovies = this.allMovies.concat(data.results!)
-          }, error: (err) =>{
-            console.log(err)
-          }
-        }
-      )
-    }
-    
+    this.actualizar()
   }
 
-  buscarPeli(peli: string){
+  buscarPeli(peli: string) {
     this.buscando = true
-    this.pagina = 1
-    
+    this.queryParams.page = 1
     this.queryParams.query = peli
 
     this.http.get<MovieResponse>("https://api.themoviedb.org/3/search/movie?", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
           this.allMovies = data.results!
-        }, error: (err) =>{
+          this.actualizar()
+        }, error: (err) => {
           console.log(err)
         }
       }
-      
+
     )
   }
 
-  listarGeneros(){
+  listarGeneros() {
     let queryGeneros = {
       api_key: "6a98bac66a8fa62e25bcf3b221294b7f",
       language: "es-ES",
@@ -110,12 +87,32 @@ export class MoviesService {
       {
         next: (data: GenreResponse) => {
           this.generos = data.genres!
-        }, error: (err) =>{
+        }, error: (err) => {
           console.log(err)
         }
       }
-      
+
     )
+  }
+
+  actualizar() {
+    this.fireService.myLikes?.subscribe((likes) => {
+      likes.forEach((like) => {
+        let posicion = this.allMovies.findIndex(m => m.id === like.id)
+        if (posicion != -1) {
+          this.allMovies[posicion]!.liked = like.liked
+        }
+      })
+    })
+
+    this.fireService.pendientes?.subscribe((pendient) => {
+      pendient.forEach((pend) => {
+        let posicion = this.allMovies.findIndex(m => m.id === pend.id)
+        if (posicion != -1) {
+          this.allMovies[posicion]!.pending = pend.liked
+        }
+      })
+    })
   }
 
 }

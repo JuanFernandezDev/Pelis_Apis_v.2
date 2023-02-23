@@ -1,26 +1,27 @@
 export interface MovieResponse {
-    page?:          number;
-    results?:       Movie[];
+    page?: number;
+    results?: Movie[];
     total_results?: number;
-    total_pages?:   number;
+    total_pages?: number;
 }
 
 export class Movie {
-    poster_path?:       null;
-    liked?:            boolean;
-    adult?:             boolean;
-    overview?:          string;
-    release_date?:      Date;
-    genre_ids?:         number[];
-    id?:                number;
-    original_title?:    string;
+    poster_path?: null;
+    liked?: boolean;
+    pending?: boolean;
+    adult?: boolean;
+    overview?: string;
+    release_date?: Date;
+    genre_ids?: number[];
+    id?: number;
+    original_title?: string;
     original_language?: string;
-    title?:             string;
-    backdrop_path?:     null;
-    popularity?:        number;
-    vote_count?:        number;
-    video?:             boolean;
-    vote_average?:      number;
+    title?: string;
+    backdrop_path?: null;
+    popularity?: number;
+    vote_count?: number;
+    video?: boolean;
+    vote_average?: number;
 }
 
 export interface GenreResponse {
@@ -28,7 +29,7 @@ export interface GenreResponse {
 }
 
 export interface Genre {
-    id?:   number;
+    id?: number;
     name?: string;
 }
 
@@ -38,6 +39,6 @@ export class Query {
     language: string = "es-ES"
     sort_by: string = "popularity.desc" //Por defecto se busca por popularity,
     with_genres?: string
-    query?: string 
+    query?: string
 }
 
