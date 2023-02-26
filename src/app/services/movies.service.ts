@@ -109,7 +109,7 @@ export class MoviesService {
       pendient.forEach((pend) => {
         let posicion = this.allMovies.findIndex(m => m.id === pend.id)
         if (posicion != -1) {
-          this.allMovies[posicion]!.pending = pend.liked
+          this.allMovies[posicion]!.pending = pend.pending
         }
       })
     })

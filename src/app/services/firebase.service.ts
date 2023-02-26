@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { GoogleAuthProvider, onAuthStateChanged, getAuth } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 /* import { auth } from 'firebase/app'; */
-import { map, Observable } from 'rxjs';
+import { map, Observable, firstValueFrom } from 'rxjs';
 import { Movie } from '../models/movies.model';
+import { MoviesService } from './movies.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +15,14 @@ export class FirebaseService {
   userData: any;
   logged: boolean = false;
 
+  likes?: Movie[]
+  pend?: Movie[]
+
   myLikes!: Observable<Movie[]>;
   pendientes!: Observable<Movie[]>;
   movieRef: AngularFirestoreCollection<Movie>;
 
-  constructor(
-    private auth: AngularFireAuth,
-    private router: Router,
-    public db: AngularFirestore
-  ) {
+  constructor(private auth: AngularFireAuth, private router: Router, public db: AngularFirestore) {
     this.movieRef = db.collection('users');
     if (this.isLoggedIn()) {
       this.myLikes = this.movieRef.doc(this.userEmail()).collection('likes').valueChanges();
@@ -90,6 +90,7 @@ export class FirebaseService {
       console.log(result.user?.email);
       this.errorLogin = false;
       this.userData = result.user;
+
     }).catch((error) => {
       if (error.code === 'auth/user-not-found') {
         console.log('El usuario no se encuentra registrado.');
@@ -112,13 +113,7 @@ export class FirebaseService {
     });
   }
 
-  saveLike(like: Movie) {
-    return this.movieRef.doc(this.userData.email).collection('likes').doc(String(like.id)).set(Object.assign({}, like));
-  }
 
-  unLike(idDoc: string) {
-    return this.movieRef.doc(this.userData.email).collection('likes').doc(idDoc).delete();
-  }
 
   loginGoogle() {
     this.logged = true;
@@ -135,12 +130,58 @@ export class FirebaseService {
 
 
   }
-  guardarPendiente(pendiente: Movie) {
-    return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(pendiente.id)).set(Object.assign({}, pendiente));
+
+  saveLike(item: Movie) {
+    if (item.pending == false || item.pending == undefined) {
+      return this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).set(Object.assign({}, item));
+    } else {
+      this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).update({ liked: true });
+      return this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).set(Object.assign({}, item));
+    }
   }
-  quitarPendiente(idDoc: string) {
-    return this.movieRef.doc(this.userData.email).collection('pendientes').doc(idDoc).delete();
+
+  unLike(item: Movie) {
+    if (item.pending == false || item.pending == undefined) {
+      return this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).delete();
+    } else {
+      this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).update({ liked: false });
+      return this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).delete();
+    }
+  }
+
+  guardarPendiente(item: Movie) {
+    console.log(item)
+    if (item.liked == false || item.liked == undefined) {
+      return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).set(Object.assign({}, item));
+    } else {
+      this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).update({ pending: true });
+      return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).set(Object.assign({}, item));
+    }
+
+  }
+  quitarPendiente(item: Movie) {
+    if (item.liked == false || item.liked == undefined) {
+      return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).delete();
+    } else {
+      this.movieRef.doc(this.userData.email).collection('likes').doc(String(item.id)).update({ pending: false });
+      return this.movieRef.doc(this.userData.email).collection('pendientes').doc(String(item.id)).delete();
+    }
+
+  }
+
+  async getLikes() {
+    this.likes = await firstValueFrom(this.myLikes)
+    //console.log(this.likes);
+  }
+
+  async getPend() {
+    this.pend = await firstValueFrom(this.pendientes)
+    //console.log(this.pend);
   }
 
 
+  actualizarListas() {
+    this.getPend()
+    this.getLikes()
+  }
 }

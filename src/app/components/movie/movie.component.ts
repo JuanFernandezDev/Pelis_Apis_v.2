@@ -46,19 +46,24 @@ export class MovieComponent {
       this.item.liked = true
       this.fireService.saveLike(this.item).then((success) => {
         console.log(success);
+        this.fireService.actualizarListas()
+
       }).catch((err) => {
         console.log(err);
       });
     }
+
     this.cerrarLista()
   }
 
   disliked() {
-    this.fireService.unLike(String(this.item.id)).then((success) => {
-      this.item.liked = undefined;
+    this.fireService.unLike(this.item).then((success) => {
+      this.item.liked = false;
+      this.fireService.actualizarListas()
     }).catch((err) => {
       console.log(err);
     });
+
   }
 
   ponerPendiente() {
@@ -66,20 +71,27 @@ export class MovieComponent {
       this.quitarPendiente();
     } else {
       this.item.pending = true
+      //console.log(this.item)
       this.fireService.guardarPendiente(this.item).then((success) => {
         console.log(success);
+        this.fireService.actualizarListas()
       }).catch((err) => {
         console.log(err);
       });
     }
     this.cerrarLista()
+
+
   }
 
   quitarPendiente() {
-    this.fireService.quitarPendiente(String(this.item.id)).then((success) => {
-      this.item.pending = undefined;
+    this.item.pending = false;
+    this.fireService.quitarPendiente(this.item).then((success) => {
+      this.fireService.actualizarListas()
     }).catch((err) => {
       console.log(err);
     });
+
+
   }
 }

@@ -1,5 +1,5 @@
 <div
-  class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
+  class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-[#999999] flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
 >
   <!-- Cabecera de busqueda y filtros -->
   <div
@@ -82,7 +82,7 @@
   </div>
 
   <div class="flex justify-center items-center mx-auto">
-    <div class="group md:ml-6 w-44 text-center">
+    <div class="group md:ml-6 w-44 text-center relative">
       <button
         class="outline-none focus:outline-none px-3 py-1 rounded flex items-center min-w-32 h-12 w-full justify-center"
       >
@@ -97,18 +97,18 @@
       </button>
       <ul
         id=""
-        class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-32 sm:right-40 transition duration-150 ease-in-out origin-top min-w-32 w-36"
+        class="bg-[#18242a] rounded text-white transform scale-0 group-hover:scale-100 absolute top-9 right-4 transition duration-150 ease-in-out min-w-32 w-36"
       >
         <li
           id=""
-          class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 justify-between"
+          class="rounded-sm px-3 py-1 hover:bg-[#304954] justify-between"
           (click)="cambiarOrden(1)"
         >
           Relevancia
         </li>
         <li
           id=""
-          class="rounded-sm px-3 py-1 hover:bg-opacity-70 justify-between"
+          class="rounded-sm px-3 py-1 hover:bg-[#304954] justify-between"
           (click)="cambiarOrden(2)"
         >
           Fecha estreno

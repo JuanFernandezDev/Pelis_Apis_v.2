@@ -1,10 +1,10 @@
 <div class="w-full" #content>
   <div class="w-10/12 mx-auto rounded-lg">
     <div
-      class="py-10 rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+      class="py-10 rounded-b-lg border-2 border-[#999999] border-t-0 md:px-7 flex flex-col"
     >
       <!-- bg-[#28455A] -->
-      <div id="peliculas" class="py-10 w-full flex flex-wrap justify-around">
+      <div id="peliculas" class="w-full flex flex-wrap justify-around">
         <app-movie
           *ngFor="let pelicula of MoviesService.allMovies"
           [item]="pelicula"

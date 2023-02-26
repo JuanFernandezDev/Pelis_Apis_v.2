@@ -1,23 +1,33 @@
-<div
-  class="w-full bg-gradient-to-l from-cyan-900 via-sky-800 to-cyan-900 mb-5 pt-3"
->
-  <nav class="w-10/12 mx-auto h-14 flex justify-between items-center px-4">
+<div class="w-full mb-5 pt-3">
+  <nav class="w-10/12 mx-auto h-14 flex justify-between items-center px-2">
     <div class="flex items-center">
-      <a class="text-lg text-white flex items-center font-bold" href="#">
-        <img class="w-7 h-7 mr-2" src="assets/img/video.png" />Inicio
+      <a
+        class="text-2xl text-white flex items-center font-bold font-serif"
+        href="#"
+      >
+        <img class="w-10 h-10 mr-2" src="assets/img/video_grande.png" />MisPelis
       </a>
-      <div class="hidden sm:block">
-        <a class="text-base text-white ml-3 font-bold" href="#">Películas</a>
-        <a class="text-base text-white ml-3 font-bold" href="#">About us</a>
-      </div>
     </div>
 
     <div class="hidden sm:flex items-center justify-center">
       <a
         *ngIf="this.fireService.logged"
-        class="text-lg text-white font-bold mr-3"
+        class="text-lg text-white font-bold mr-3 flex items-center"
         routerLink="/account"
-        >Mi cuenta</a
+      >
+        <img
+          class="w-6 object-center mr-2 rounded-full"
+          *ngIf="this.fireService.userData.photoURL != null"
+          [src]="this.fireService.userData.photoURL"
+          alt=""
+        />
+        <img
+          *ngIf="this.fireService.userData.photoURL == null"
+          class="w-6 object-contain mr-2"
+          src="assets\img\profile-user.png"
+          alt=""
+        />
+        Mi cuenta</a
       >
 
       <a
@@ -35,23 +45,11 @@
       </a>
 
       <a
-        class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+        class="text-lg text-white font-normal hidden sm:flex items-center justify-center"
         href="#"
         *ngIf="this.fireService.logged"
         (click)="this.fireService.logOut()"
       >
-        <img
-          class="w-6 object-contain mr-2 rounded-full"
-          *ngIf="this.fireService.userData.photoURL != null"
-          [src]="this.fireService.userData.photoURL"
-          alt=""
-        />
-        <img
-          *ngIf="this.fireService.userData.photoURL == null"
-          class="w-6 object-contain mr-2"
-          src="assets\img\profile-user.png"
-          alt=""
-        />
         <p>Log out</p>
       </a>
     </div>
@@ -70,57 +68,46 @@
         <!-- Nav normal -->
         <ul
           id=""
-          class="bg-[#113149] text-white border rounded-lg transform scale-0 group-hover:scale-100 absolute right-6 transition duration-150 ease-in-out origin-top min-w-32 w-36 z-50"
+          class="bg-[#18242a] text-white rounded transform scale-0 group-hover:scale-100 absolute right-12 transition duration-150 ease-in-out origin-top min-w-32 w-36 z-50"
         >
           <li
+            *ngIf="this.fireService.logged"
             id=""
-            class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 flex items-center"
+            class="px-2 py-1 hover:bg-[#304954] flex items-center"
           >
-            <!-- <img
-              class="w-3.5 object-contain mr-2"
-              src="Img/estadisticas.png"
-              alt=""
-            /> -->
-            <div class="opacity-100 text-white">About us</div>
-          </li>
-          <li
-            id=""
-            class="rounded-sm px-3 py-1 border-b border-white hover:bg-opacity-70 flex items-center"
-          >
-            <img
-              class="w-3.5 object-contain mr-2"
-              src="assets\img\settings.png"
-              alt=""
-            />
-            <div class="opacity-100 text-white">Setting</div>
-          </li>
-          <li
-            class="hidden rounded-sm px-3 py-1 hover:bg-opacity-70 items-center"
-          >
-            <div id="img-logout2">
+            <a
+              class="text-base text-white flex items-center"
+              routerLink="/account"
+            >
               <img
-                class="w-3.5 object-contain mr-1"
+                class="w-5 object-center mr-2 rounded-full"
+                *ngIf="this.fireService.userData.photoURL != null"
+                [src]="this.fireService.userData.photoURL"
+                alt=""
+              />
+              <img
+                *ngIf="this.fireService.userData.photoURL == null"
+                class="w-5 object-contain mr-2"
                 src="assets\img\profile-user.png"
                 alt=""
               />
-            </div>
+              Mi cuenta</a
+            >
+          </li>
+
+          <li
+            *ngIf="this.fireService.logged"
+            class="rounded-sm px-3 py-1 hover:bg-[#304954] items-center"
+          >
             <div class="opacity-100 text-white">
               <a
-                class="text-lg text-white font-bold hidden sm:flex items-center justify-center"
+                class="text-white flex items-center"
                 href="#"
-                *ngIf="this.fireService.logged"
                 (click)="this.fireService.logOut()"
               >
                 <img
-                  class="w-6 object-contain mr-2 rounded-full"
-                  *ngIf="this.fireService.userData.photoURL != null"
-                  [src]="this.fireService.userData.photoURL"
-                  alt=""
-                />
-                <img
-                  *ngIf="this.fireService.userData.photoURL == null"
-                  class="w-6 object-contain mr-2"
-                  src="assets\img\profile-user.png"
+                  class="w-4 object-contain mr-2"
+                  src="assets\img\logout.png"
                   alt=""
                 />
                 <p>Log out</p>
@@ -130,6 +117,7 @@
           <li
             class="rounded-sm px-3 py-1 hover:bg-opacity-70 flex items-center"
             (click)="goLogin($event)"
+            *ngIf="!this.fireService.logged"
           >
             <img
               class="w-3.5 object-contain mr-2"

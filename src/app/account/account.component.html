@@ -1,27 +1,57 @@
 <app-navbar></app-navbar>
-<div class="w-full">
+<div class="w-full pb-10">
   <div
-    class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
+    class="w-10/12 mx-auto py-4 rounded-t-lg border-2 px-2 border-gray-600 flex flex-colum md:flex-row items-center md:px-4 flex-wrap lg:flex-nowrap justify-between"
   >
-    <h1 class="text-xl text-white font-semibold">Peliculas favoritas</h1>
+    <div class="flex">
+      <img class="mr-2 w-8" src="assets\img\me-gusta_blanco.png" alt="" />
+      <h1 class="text-xl text-white font-semibold">Peliculas favoritas</h1>
+    </div>
+    <a class="w-6" routerLink="/"
+      ><img src="assets\img\mas_blanco.png" alt=""
+    /></a>
   </div>
   <div
-    class="w-10/12 mx-auto rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+    class="w-10/12 mx-auto rounded-b-lg border-2 border-gray-600 border-t-0 md:px-7 flex flex-col"
   >
     <div class="py-10 w-full flex flex-wrap justify-start">
-      <app-movie *ngFor="let pelicula of likes" [item]="pelicula"></app-movie>
+      <app-movie
+        *ngFor="let pelicula of this.fireService.likes"
+        [item]="pelicula"
+      ></app-movie>
+      <h1
+        class="text-white text-4xl font-serif"
+        *ngIf="this.fireService.likes!.length == 0"
+      >
+        No tienes peliculas en favoritos.
+      </h1>
     </div>
   </div>
   <div
-    class="w-10/12 mt-10 mx-auto py-4 rounded-t-lg border-2 px-2 border-white flex flex-colum md:flex-row justify-between items-center md:px-4 flex-wrap lg:flex-nowrap"
+    class="w-10/12 mt-10 mx-auto py-4 rounded-t-lg border-2 px-2 border-gray-600 flex flex-colum md:flex-row items-center md:px-4 flex-wrap lg:flex-nowrap justify-between"
   >
-    <h1 class="text-xl text-white font-semibold">Peliculas pendientes</h1>
+    <div class="flex">
+      <img class="mr-2 w-8" src="assets\img\pendiente.png" alt="" />
+      <h1 class="text-xl text-white font-semibold">Peliculas pendientes</h1>
+    </div>
+    <a class="w-6" routerLink="/"
+      ><img src="assets\img\mas_blanco.png" alt=""
+    /></a>
   </div>
   <div
-    class="w-10/12 mx-auto rounded-b-lg border-2 border-white border-t-0 md:px-7 flex flex-col"
+    class="w-10/12 mx-auto rounded-b-lg border-2 border-gray-600 border-t-0 md:px-7 flex flex-col"
   >
     <div class="py-10 w-full flex flex-wrap justify-start">
-      <app-movie *ngFor="let pelicula of pend" [item]="pelicula"></app-movie>
+      <app-movie
+        *ngFor="let pelicula of this.fireService.pend"
+        [item]="pelicula"
+      ></app-movie>
+      <h1
+        class="text-white text-4xl font-serif"
+        *ngIf="this.fireService.pend!.length == 0"
+      >
+        No tienes peliculas pendientes.
+      </h1>
     </div>
   </div>
 </div>

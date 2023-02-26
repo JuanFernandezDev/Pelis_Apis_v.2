@@ -25,10 +25,6 @@ export class LoginComponent {
     return this.formUser.get('email') as FormControl
   }
 
-  procesar() {
-    console.log(this.formUser.value)
-  }
-
   goRegistro() {
     this.router.navigate(['/register']);
   }

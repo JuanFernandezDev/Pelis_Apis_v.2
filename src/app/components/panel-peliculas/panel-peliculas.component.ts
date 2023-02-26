@@ -17,6 +17,7 @@ export class PanelPeliculasComponent {
 
   ngOnInit(): void {
     this.MoviesService.getMovies()
+
   }
 
   @HostListener('window:scroll', ['$event'])
