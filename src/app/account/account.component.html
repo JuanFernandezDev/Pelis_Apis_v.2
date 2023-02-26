@@ -5,7 +5,7 @@
   >
     <div class="flex">
       <img class="mr-2 w-8" src="assets\img\me-gusta_blanco.png" alt="" />
-      <h1 class="text-xl text-white font-semibold">Peliculas favoritas</h1>
+      <h1 class="text-xl text-white font-semibold">Películas favoritas</h1>
     </div>
     <a class="w-6" routerLink="/"
       ><img src="assets\img\mas_blanco.png" alt=""
@@ -23,7 +23,7 @@
         class="text-white text-4xl font-serif"
         *ngIf="this.fireService.likes!.length == 0"
       >
-        No tienes peliculas en favoritos.
+        No tienes películas en favoritos.
       </h1>
     </div>
   </div>
@@ -32,7 +32,7 @@
   >
     <div class="flex">
       <img class="mr-2 w-8" src="assets\img\pendiente.png" alt="" />
-      <h1 class="text-xl text-white font-semibold">Peliculas pendientes</h1>
+      <h1 class="text-xl text-white font-semibold">Películas pendientes</h1>
     </div>
     <a class="w-6" routerLink="/"
       ><img src="assets\img\mas_blanco.png" alt=""
@@ -50,7 +50,7 @@
         class="text-white text-4xl font-serif"
         *ngIf="this.fireService.pend!.length == 0"
       >
-        No tienes peliculas pendientes.
+        No tienes películas pendientes.
       </h1>
     </div>
   </div>
