@@ -11,7 +11,7 @@ export class MoviesService {
   buscando = false
   nombre: string = ""
   pagina = 1
-  url = "https://api.themoviedb.org/3/discover/movie/"
+  url = "https://api.themoviedb.org/3/discover/movie?"
   apiKey = "6a98bac66a8fa62e25bcf3b221294b7f"
 
   queryParams: Query = new Query()
@@ -31,7 +31,7 @@ export class MoviesService {
       delete this.queryParams.with_genres
     }
 
-    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie/", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
+    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie?", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
           this.allMovies = data.results!
@@ -48,7 +48,7 @@ export class MoviesService {
     this.pagina++
 
 
-    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie/", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
+    this.http.get<MovieResponse>("https://api.themoviedb.org/3/discover/movie?", { params: JSON.parse(JSON.stringify(this.queryParams)) }).subscribe(
       {
         next: (data: MovieResponse) => {
           this.allMovies = this.allMovies.concat(data.results!)

@@ -3,10 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider, onAuthStateChanged, getAuth } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-/* import { auth } from 'firebase/app'; */
 import { map, Observable, firstValueFrom } from 'rxjs';
 import { Movie } from '../models/movies.model';
-import { MoviesService } from './movies.service';
+
 
 @Injectable({
   providedIn: 'root',
